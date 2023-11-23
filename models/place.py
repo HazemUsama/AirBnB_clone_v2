@@ -4,6 +4,7 @@ from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
 from models.review import Review
+from models.amenity import Amenity
 from os import getenv
 
 association_table = Table("place_amenity", Base.metadata,
@@ -35,7 +36,7 @@ class Place(BaseModel, Base):
 
     reviews = relationship("Review", backref="place", cascade="all, delete")
     amenities = relationship("Amenity", secondary="place_amenity",
-                             viewonly=False)
+            back_populates="place_amenities", viewonly=False)
 
     amenity_ids = []
 
