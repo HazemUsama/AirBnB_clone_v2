@@ -5,7 +5,6 @@ from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
 from models.review import Review
 from os import getenv
-from models import storage
 
 association_table = Table("place_amenity", Base.metadata,
                           Column("place_id",
@@ -42,6 +41,8 @@ class Place(BaseModel, Base):
 
 
     if getenv("HBNB_TYPE_STORAGE") != "db":
+        from models import storage
+
         @property
         def reviews(self):
             """getter attribute reviews return a list of
