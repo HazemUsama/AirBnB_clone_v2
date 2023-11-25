@@ -15,7 +15,7 @@ class BaseModel:
         id: BaseModel id
         created_at: instance's creation date
         updated_at: instance's last update date"""
-    id = Column(String(60), primary_key=True, nullable=False)
+    id = Column(String(60), primary_key=True, default=str(uuid.uuid4()), nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False,
                 default=datetime.utcnow(), onupdate=datetime.utcnow())
@@ -73,5 +73,6 @@ class BaseModel:
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
+        dictionary.pop("__class__", None)
         dictionary.pop("_sa_instance_state", None)
         return dictionary
