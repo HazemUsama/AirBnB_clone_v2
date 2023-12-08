@@ -2,7 +2,7 @@
 """Fabric script module"""
 from fabric.api import *
 import time
-
+import os
 
 env.hosts = ['54.197.43.224', '52.201.178.140']
 env.user = 'ubuntu'
@@ -11,7 +11,7 @@ def do_pack():
     """Generates a .tgz archive from the contents of the web_static"""
     local("mkdir -p versions")
     archive_path = 'versions/web_static_{}.tgz'.format(
-            time.strftime('%Y%m%d%H%M%S'))
+    time.strftime('%Y%m%d%H%M%S'))
     results = local('tar -cvzf {} web_static'.format(archive_path))
     if results.success:
         return archive_path
@@ -25,7 +25,7 @@ def do_deploy(archive_path):
 
     archive_file = archive_path[9:]
     release_version = '/data/web_static/releases/{}/'.format(archive_file[:-4])
-    put('archive_path', '/tmp/')
+    put(archive_path, '/tmp/')
     run('mkdir -p {}'.format(release_version))
     run('tar -xzf /tmp/{} -C {}'.format(archive_file, release_version))
     run('rm /tmp/{}'.format(archive_file))
