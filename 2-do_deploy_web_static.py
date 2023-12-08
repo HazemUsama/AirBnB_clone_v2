@@ -5,7 +5,7 @@ import time
 
 
 env.hosts = ['54.197.43.224', '52.201.178.140']
-
+env.user = 'ubuntu'
 
 def do_pack():
     """Generates a .tgz archive from the contents of the web_static"""
@@ -25,7 +25,7 @@ def do_deploy(archive_path):
 
     archive_file = archive_path[9:]
     release_version = '/data/web_static/releases/{}/'.format(archive_file[:-4])
-    put('archive_path', 'tmp/{}'.format(archive_file))
+    put('archive_path', '/tmp/')
     run('mkdir -p {}'.format(release_version))
     run('tar -xzf /tmp/{} -C {}'.format(archive_file, release_version))
     run('rm /tmp/{}'.format(archive_file))
