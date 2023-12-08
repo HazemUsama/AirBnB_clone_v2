@@ -1,16 +1,28 @@
 #!/usr/bin/python3
 """Fabric script module"""
 from fabric.api import *
-import os
+import time
 
 
 env.hosts = ['54.197.43.224', '52.201.178.140']
+
+
+def do_pack():
+    """Generates a .tgz archive from the contents of the web_static"""
+    local("mkdir -p versions")
+    archive_path = 'versions/web_static_{}.tgz'.format(
+            time.strftime('%Y%m%d%H%M%S'))
+    results = local('tar -cvzf {} web_static'.format(archive_path))
+    if results.success:
+        return archive_path
+    return None
 
 
 def do_deploy(archive_path):
     """distributes an archive to my web servers"""
     if not os.path.exists(archive_path):
         return False
+
     archive_file = archive_path[9:]
     release_version = '/data/web_static/releases/{}/'.format(archive_file[:-4])
     put('archive_path', 'tmp/{}'.format(archive_file))
