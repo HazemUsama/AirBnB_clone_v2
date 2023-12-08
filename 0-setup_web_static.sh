@@ -24,4 +24,5 @@ touch /data/web_static/releases/test/index.html
 echo "$content" >  /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
-ssed -i "s|server_name _;|$new_server|" /etc/nginx/sites-available/default
+sed -i "/server_name _;/a $new_server" /etc/nginx/sites-available/default
+
