@@ -7,10 +7,9 @@ import time
 def do_pack():
     """Generates a .tgz archive from the contents of the web_static"""
     local("mkdir -p versions")
-    try:
-        file_name = 'versions/web_static_{}.tgz'.format(time.strftime('%Y%m%d%H%M%S'))
-        local('tar -cvzf {} web_static'.format(file_name)) 
-        return file_name
-    except:
-        return None
-
+    file_path = 'versions/web_static_{}.tgz'
+    .format(time.strftime('%Y%m%d%H%M%S'))
+    results = local('tar -cvzf {} web_static'.format(file_path))
+    if results.success:
+        return file_path
+    return None
