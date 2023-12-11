@@ -1,3 +1,4 @@
+# Redo Task 0 with puppet
 
 package { 'nginx':
   ensure    => 'installed',
