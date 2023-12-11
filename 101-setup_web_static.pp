@@ -6,12 +6,6 @@ package { 'ngix':
 }
 
 # Create Directory & Files
-file { '/data/':
-  ensure  => directory,
-  owner   => 'ubuntu',
-  group   => 'ubuntu',
-  recurse => true,
-}
 
 file { [
   '/data/web_static/',
@@ -32,6 +26,13 @@ file { '/data/web_static/current':
   ensure => link,
   target => '/data/web_static/releases/test/',
   force  => true,
+}
+
+file { '/data/':
+  ensure  => directory,
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
+  recurse => true,
 }
 
 # Restart Nginx
