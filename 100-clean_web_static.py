@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """Fabric script module"""
 from fabric.api import *
-import time
-import os
 
 env.hosts = ['54.197.43.224', '52.201.178.140']
 env.user = 'ubuntu'
@@ -19,5 +17,5 @@ def do_clean(number=0):
     else:
         number += 1
 
-    local('cd version ; ls -t | tail -n +{} | xargs rm -rf'.format(number))
+    local('cd versions ; ls -t | tail -n +{} | xargs rm -rf'.format(number))
     run('cd {} ; ls -t | tail -n +{} | xargs rm -rf'.format(path, number))
