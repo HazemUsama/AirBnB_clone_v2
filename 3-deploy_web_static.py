@@ -4,7 +4,7 @@ from fabric.api import *
 import time
 import os
 
-env.hosts = ['54.197.43.224', '52.201.178.140']
+env.hosts = ['52.86.81.27', '100.25.152.142']
 env.user = 'ubuntu'
 
 
@@ -14,7 +14,7 @@ def do_pack():
     archive_path = 'versions/web_static_{}.tgz'.format(
         time.strftime('%Y%m%d%H%M%S'))
     results = local('tar -cvzf {} web_static'.format(archive_path))
-    if results.successed:
+    if results.succeeded:
         return archive_path
     return None
 
