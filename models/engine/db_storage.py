@@ -4,7 +4,6 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import create_engine
 from os import getenv
 
-
 class DBStorage:
     """This class manages storage of hbnb models in the DataBase
 
@@ -73,8 +72,9 @@ class DBStorage:
 
         Base.metadata.create_all(DBStorage.__engine)
         Session = scoped_session(sessionmaker(bind=DBStorage.__engine, expire_on_commit=False))
-        DBStorage.__session = Session()
+        scoped = scoped_session(Session)
+        DBStorage.__session = scoped
 
     def close(self):
         """ """
-        self.__session.close()
+        self.__session.remove()
