@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import create_engine
 from os import getenv
 
+
 class DBStorage:
     """This class manages storage of hbnb models in the DataBase
 
@@ -24,11 +25,11 @@ class DBStorage:
         from models.user import User
 
         DBStorage.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".
-                                        format(getenv("HBNB_MYSQL_USER"),
-                                                getenv("HBNB_MYSQL_PWD"),
-                                                getenv("HBNB_MYSQL_HOST"),
-                                                getenv("HBNB_MYSQL_DB")),
-                                        pool_pre_ping=True)
+                                           format(getenv("HBNB_MYSQL_USER"),
+                                                  getenv("HBNB_MYSQL_PWD"),
+                                                  getenv("HBNB_MYSQL_HOST"),
+                                                  getenv("HBNB_MYSQL_DB")),
+                                           pool_pre_ping=True)
 
         if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
@@ -50,7 +51,8 @@ class DBStorage:
         for class_obj in classes:
             objects = self.__session.query(class_obj).all()
             for obj in objects:
-                results['{}.{}'.format(obj.to_dict()['__class__'] , obj.id)] = obj
+                results['{}.{}'.format(obj.to_dict()['__class__'],
+                                       obj.id)] = obj
         return results
 
     def new(self, obj):
@@ -71,7 +73,8 @@ class DBStorage:
         from models.base_model import Base
 
         Base.metadata.create_all(DBStorage.__engine)
-        Session = scoped_session(sessionmaker(bind=DBStorage.__engine, expire_on_commit=False))
+        Session = scoped_session(sessionmaker(bind=DBStorage.__engine,
+                                              expire_on_commit=False))
         scoped = scoped_session(Session)
         DBStorage.__session = scoped
 
