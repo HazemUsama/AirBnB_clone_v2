@@ -33,4 +33,4 @@ def tear_down(exc):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

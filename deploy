@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+# Deploy And Clean!!
+
+fab -f 3-deploy_web_static.py deploy
+fab -f 100-clean_web_static.py do_clean
