@@ -44,7 +44,7 @@
         z-index: 100;
           max-height: 300px;
         overflow-y: auto;
-        /* scrollbar-width: none;  hide scroll bar */
+        scrollbar-width: none; /* hide scroll bar */
 }
 
 .locations:hover .popover {
