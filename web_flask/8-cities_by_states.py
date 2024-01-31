@@ -5,7 +5,7 @@ starts a Flask web application
 """
 from flask import Flask, render_template
 from models import storage
-from models.state import State, City
+from models.state import State
 
 app = Flask(__name__)
 
@@ -15,10 +15,8 @@ app = Flask(__name__)
 def show_states_and_cities():
     """Display all states"""
     states = storage.all(State)
-    cities = storage.all(City)
 
-    return render_template('8-cities_by_states.html', states=states.values(),
-                           cities=cities.values())
+    return render_template('8-cities_by_states.html', states=states.values())
 
 
 @app.teardown_appcontext
